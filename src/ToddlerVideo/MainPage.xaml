@@ -8,12 +8,13 @@
     mc:Ignorable="d">
     <Page.Resources>
         <Style x:Key="ButtonStyle1" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Background" Value="#33FFFFFF"/>
             <Setter Property="Foreground">
                 <Setter.Value>
                     <SolidColorBrush Color="#4C000000"/>
                 </Setter.Value>
             </Setter>
+            <Setter Property="Margin" Value="20"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Padding" Value="0,0,9,0"/>
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
@@ -22,7 +23,6 @@
             <Setter Property="VerticalContentAlignment" Value="Top"/>
             <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
             <Setter Property="FontSize" Value="48"/>
-            <Setter Property="Width" Value="{ThemeResource AppBarExpandButtonThemeWidth}"/>
             <Setter Property="UseSystemFocusVisuals" Value="True"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -62,24 +62,22 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Setter Property="MinWidth" Value="48"/>
         </Style>
     </Page.Resources>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <RelativePanel x:Name="RelPanel">
         <MediaElement x:Name="_mediaElement"
                       AreTransportControlsEnabled="false"
-                      IsLooping="true"/>
-        <Grid Margin="20">
-            <Button Click="NumberButtonClick" Content="1" Style="{StaticResource ButtonStyle1}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <Button Click="NumberButtonClick" Content="2" Style="{StaticResource ButtonStyle1}" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                <Button x:Uid="PickFileButton" Content="pick file" Click="PickFileButtonClick" HorizontalAlignment="Center" Background="{x:Null}" Foreground="#4C000000"
-            		x:Name="_pickFileButton" FontSize="48"/>
-                <Button x:Uid="LockAndPlayButton" Content="lock and play" Click="_lockAndPlayButton_OnClick" HorizontalAlignment="Center" Background="{x:Null}" Foreground="#4C000000"
-            		x:Name="_lockAndPlayButton" FontSize="48"/>
-
-            </StackPanel>
-
-        </Grid>
-    </Grid>
+                      IsLooping="true"
+                      />
+        <Button Click="NumberButtonClick" Content="1" Style="{StaticResource ButtonStyle1}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Button Click="NumberButtonClick" Content="2" Style="{StaticResource ButtonStyle1}" HorizontalAlignment="Right" VerticalAlignment="Top" RelativePanel.AlignRightWithPanel="True"/>
+        <StackPanel x:Name="_playButtonsPanel" Orientation="Vertical" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
+            <Button x:Uid="PickFileButton" Content="pick file" Click="PickFileButtonClick" HorizontalAlignment="Center" Background="{x:Null}" Foreground="#4C000000"
+        		x:Name="_pickFileButton" Style="{StaticResource ButtonStyle1}" />
+            <Button x:Uid="LockAndPlayButton" Content="lock and play" Click="_lockAndPlayButton_OnClick" HorizontalAlignment="Center" Background="{x:Null}" Foreground="#4C000000"
+        		x:Name="_lockAndPlayButton" FontSize="48" Style="{StaticResource ButtonStyle1}" />
+        </StackPanel>
+    </RelativePanel>
 </Page>

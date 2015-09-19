@@ -24,6 +24,7 @@ namespace App2
             this.InitializeComponent();
 
             InitButtonTimer();
+            _lockAndPlayButton.Visibility = Visibility.Collapsed;
         }
 
         private void InitButtonTimer()
@@ -48,7 +49,8 @@ namespace App2
             if (file != null)
             {
                 var stream = await file.OpenStreamForReadAsync();
-                _pickFileButton.Visibility = Visibility.Collapsed;
+                _playButtonsPanel.Visibility = Visibility.Collapsed;
+                _lockAndPlayButton.Visibility = Visibility.Visible;
                 _mediaElement.SetSource(stream.AsRandomAccessStream(), "video/mp4");
             }
         }
@@ -62,7 +64,7 @@ namespace App2
             if (buttonId == "2" && _lastButtonId == "1")
             {
                 _mediaElement.AreTransportControlsEnabled = !_mediaElement.AreTransportControlsEnabled;
-                _pickFileButton.Visibility = _mediaElement.AreTransportControlsEnabled ? Visibility.Visible : Visibility.Collapsed;
+                _playButtonsPanel.Visibility = _mediaElement.AreTransportControlsEnabled ? Visibility.Visible : Visibility.Collapsed;
             }
             _lastButtonId = buttonId;
             _buttonTimer.Stop();
@@ -80,6 +82,9 @@ namespace App2
             {
                 _mediaElement.Play();
             }
+            _playButtonsPanel.Visibility = Visibility.Collapsed;
+            _mediaElement.AreTransportControlsEnabled = false;
+
             var applicationView = ApplicationView.GetForCurrentView();
             applicationView.TryEnterFullScreenMode();
         }
