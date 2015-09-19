@@ -6,6 +6,7 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -49,9 +50,10 @@ namespace App2
             if (file != null)
             {
                 var stream = await file.OpenStreamForReadAsync();
-                _playButtonsPanel.Visibility = Visibility.Collapsed;
-                _lockAndPlayButton.Visibility = Visibility.Visible;
                 _mediaElement.SetSource(stream.AsRandomAccessStream(), "video/mp4");
+                _lockAndPlayButton.Visibility = Visibility.Visible;
+
+                LockAndPlay();
             }
         }
 
@@ -78,7 +80,7 @@ namespace App2
 
         private void LockAndPlay()
         {
-            if (_mediaElement.Source != null)
+            if (_mediaElement.Source != null && _mediaElement.CurrentState != MediaElementState.Playing)
             {
                 _mediaElement.Play();
             }
