@@ -68,15 +68,18 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <MediaElement x:Name="_mediaElement"
                       AreTransportControlsEnabled="false"
-                      IsLooping="true"
-                      Tapped="_mediaElement_Tapped"/>
-        <Grid VerticalAlignment="Top" Margin="100,40,100,0"
-              Tapped="Grid_Tapped">
-            <Button Click="Button_Click_1" Content="1" Style="{StaticResource ButtonStyle1}" HorizontalAlignment="Left" />
-            <Button Click="Button_Click_1" Content="2" Style="{StaticResource ButtonStyle1}" HorizontalAlignment="Right"/>
-            <Button x:Uid="PickFileButton" Content="pick file" Click="Button_Click" HorizontalAlignment="Center" Background="{x:Null}" Foreground="#4C000000"
-                    x:Name="_pickFileButton" FontSize="48"/>
-            
+                      IsLooping="true"/>
+        <Grid Margin="20">
+            <Button Click="NumberButtonClick" Content="1" Style="{StaticResource ButtonStyle1}" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            <Button Click="NumberButtonClick" Content="2" Style="{StaticResource ButtonStyle1}" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                <Button x:Uid="PickFileButton" Content="pick file" Click="PickFileButtonClick" HorizontalAlignment="Center" Background="{x:Null}" Foreground="#4C000000"
+            		x:Name="_pickFileButton" FontSize="48"/>
+                <Button x:Uid="LockAndPlayButton" Content="lock and play" Click="_lockAndPlayButton_OnClick" HorizontalAlignment="Center" Background="{x:Null}" Foreground="#4C000000"
+            		x:Name="_lockAndPlayButton" FontSize="48"/>
+
+            </StackPanel>
+
         </Grid>
     </Grid>
 </Page>

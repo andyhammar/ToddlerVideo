@@ -1,20 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Storage.Pickers;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -32,31 +23,24 @@ namespace App2
         {
             this.InitializeComponent();
 
-            var applicationView = ApplicationView.GetForCurrentView();
-            applicationView.TryEnterFullScreenMode();
+            InitButtonTimer();
+        }
 
-            if (_buttonTimer == null)
+        private void InitButtonTimer()
+        {
+            if (_buttonTimer != null) return;
+
+            _buttonTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(2000) };
+            _buttonTimer.Tick += (sender, e) =>
             {
-                _buttonTimer = new DispatcherTimer();
-                _buttonTimer.Interval = TimeSpan.FromMilliseconds(1000);
-                _buttonTimer.Tick += (sender, e) =>
-                {
-                    _buttonTimer.Stop();
-                    _lastButtonId = string.Empty;
-                };
-            }
-
+                _buttonTimer.Stop();
+                _lastButtonId = string.Empty;
+            };
         }
 
-        private void _buttonTimer_Tick(object sender, object e)
+        private async void PickFileButtonClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
-        }
-
-        private async void Button_Click(object sender, RoutedEventArgs e)
-        {
-            var picker = new FileOpenPicker();
-            picker.SuggestedStartLocation = PickerLocationId.VideosLibrary;
+            var picker = new FileOpenPicker { SuggestedStartLocation = PickerLocationId.VideosLibrary };
             picker.FileTypeFilter.Add(".mp4");
             picker.FileTypeFilter.Add(".avi");
             var file = await picker.PickSingleFileAsync();
@@ -69,17 +53,8 @@ namespace App2
             }
         }
 
-        private void _mediaElement_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            Debug.WriteLine("ME tapped");
-        }
 
-        private void Grid_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            Debug.WriteLine("grid tapped");
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void NumberButtonClick(object sender, RoutedEventArgs e)
         {
             var buttonId = (sender as Button)?.Content as string;
             if (buttonId == null) return;
@@ -92,6 +67,21 @@ namespace App2
             _lastButtonId = buttonId;
             _buttonTimer.Stop();
             _buttonTimer.Start();
+        }
+
+        private void _lockAndPlayButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            LockAndPlay();
+        }
+
+        private void LockAndPlay()
+        {
+            if (_mediaElement.Source != null)
+            {
+                _mediaElement.Play();
+            }
+            var applicationView = ApplicationView.GetForCurrentView();
+            applicationView.TryEnterFullScreenMode();
         }
     }
 }
