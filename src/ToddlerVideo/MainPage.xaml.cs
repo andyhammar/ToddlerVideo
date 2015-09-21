@@ -80,10 +80,10 @@ namespace App2
 
         private void LockAndPlay()
         {
-            if (_mediaElement.Source != null && _mediaElement.CurrentState != MediaElementState.Playing)
-            {
-                _mediaElement.Play();
-            }
+            if (_mediaElement == null) return;
+
+            _mediaElement.Play();
+
             _playButtonsPanel.Visibility = Visibility.Collapsed;
             _mediaElement.AreTransportControlsEnabled = false;
 

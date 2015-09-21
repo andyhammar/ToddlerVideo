@@ -17,8 +17,10 @@
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>ToddlerVideo_TemporaryKey.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>BDF3EC4229A4A4C6DA9BE7F9B37A63EAEC2FCD38</PackageCertificateThumbprint>
+    <PackageCertificateKeyFile>ToddlerVideo_StoreKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>1CF80E1499CDF9C11EF92B58F3F7ADB723A0E63F</PackageCertificateThumbprint>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
@@ -95,6 +97,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="project.json" />
+    <None Include="ToddlerVideo_StoreKey.pfx" />
     <None Include="ToddlerVideo_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -113,6 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\StoreLogo.scale-100.png" />
+    <None Include="Package.StoreAssociation.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
