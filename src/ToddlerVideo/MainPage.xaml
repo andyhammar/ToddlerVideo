@@ -18,11 +18,11 @@
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Padding" Value="0,0,9,0"/>
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="HorizontalContentAlignment" Value="Right"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Top"/>
             <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
-            <Setter Property="FontSize" Value="48"/>
+            <Setter Property="FontSize" Value="72"/>
             <Setter Property="UseSystemFocusVisuals" Value="True"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -57,12 +57,22 @@
                                     </VisualState>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
-                            <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            <ContentPresenter x:Name="ContentPresenter"
+                                              AutomationProperties.AccessibilityView="Raw" 
+                                              BorderBrush="{TemplateBinding BorderBrush}" 
+                                              BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
             <Setter Property="MinWidth" Value="48"/>
+            <Setter Property="Width" Value="96"/>
+        </Style>
+        <Style x:Key="ButtonStyleWhiteBackground" TargetType="Button">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="#AA000000"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="FontSize" Value="36"/>
         </Style>
     </Page.Resources>
 
@@ -74,10 +84,12 @@
         <Button Click="NumberButtonClick" Content="1" Style="{StaticResource ButtonStyle1}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <Button Click="NumberButtonClick" Content="2" Style="{StaticResource ButtonStyle1}" HorizontalAlignment="Right" VerticalAlignment="Top" RelativePanel.AlignRightWithPanel="True"/>
         <StackPanel x:Name="_playButtonsPanel" Orientation="Vertical" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
-            <Button x:Uid="PickFileButton" Content="pick file" Click="PickFileButtonClick" HorizontalAlignment="Center" Background="{x:Null}" Foreground="#4C000000"
-        		x:Name="_pickFileButton" Style="{StaticResource ButtonStyle1}" />
-            <Button x:Uid="LockAndPlayButton" Content="lock and play" Click="_lockAndPlayButton_OnClick" HorizontalAlignment="Center" Background="{x:Null}" Foreground="#4C000000"
-        		x:Name="_lockAndPlayButton" FontSize="48" Style="{StaticResource ButtonStyle1}" />
+            <Button x:Uid="PickFileButton" Content="pick file" Click="PickFileButtonClick" 
+                    HorizontalAlignment="Center" 
+        		x:Name="_pickFileButton" Style="{StaticResource ButtonStyleWhiteBackground}" />
+            <Button x:Uid="LockAndPlayButton" Content="lock and play" Click="_lockAndPlayButton_OnClick" 
+                    HorizontalAlignment="Center" 
+        		x:Name="_lockAndPlayButton" Style="{StaticResource ButtonStyleWhiteBackground}" />
         </StackPanel>
     </RelativePanel>
 </Page>
