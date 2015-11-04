@@ -76,15 +76,7 @@ namespace App2
 
         private async void PickFileButtonClick(object sender, RoutedEventArgs e)
         {
-<<<<<<< HEAD
-            var picker = new FileOpenPicker
-            {
-                SuggestedStartLocation = PickerLocationId
-                .VideosLibrary
-            };
-=======
             var picker = new FileOpenPicker {SuggestedStartLocation = PickerLocationId.VideosLibrary};
->>>>>>> preventing lock screen when playing
             picker.FileTypeFilter.Add(".mp4");
             picker.FileTypeFilter.Add(".avi");
             var file = await picker.PickSingleFileAsync();
