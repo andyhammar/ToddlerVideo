@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using Windows.Security.Authentication.Web.Core;
 using Windows.Storage.Pickers;
+using Windows.System.Display;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -19,6 +21,7 @@ namespace App2
     {
         private string _lastButtonId;
         private DispatcherTimer _buttonTimer;
+        private DisplayRequest _request;
 
         public MainPage()
         {
@@ -26,13 +29,44 @@ namespace App2
 
             InitButtonTimer();
             _lockAndPlayButton.Visibility = Visibility.Collapsed;
+            _mediaElement.CurrentStateChanged += _mediaElement_CurrentStateChanged;
         }
+
+        private void _mediaElement_CurrentStateChanged(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                UpdateLockScreenPrevention(_mediaElement.CurrentState);
+            }
+            catch (Exception exception)
+            {
+                Debug.WriteLine("error preventing lock screen:  " + exception);
+            }
+        }
+
+        private void UpdateLockScreenPrevention(MediaElementState currentState)
+        {
+            if (currentState != MediaElementState.Playing)
+            {
+                if (_request == null) return;
+
+                _request.RequestRelease();
+                _request = null;
+                return;
+            }
+
+            if (_request != null) return;
+
+            _request = new DisplayRequest();
+            _request.RequestActive();
+        }
+
 
         private void InitButtonTimer()
         {
             if (_buttonTimer != null) return;
 
-            _buttonTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(2000) };
+            _buttonTimer = new DispatcherTimer {Interval = TimeSpan.FromMilliseconds(2000)};
             _buttonTimer.Tick += (sender, e) =>
             {
                 _buttonTimer.Stop();
@@ -42,11 +76,15 @@ namespace App2
 
         private async void PickFileButtonClick(object sender, RoutedEventArgs e)
         {
+<<<<<<< HEAD
             var picker = new FileOpenPicker
             {
                 SuggestedStartLocation = PickerLocationId
                 .VideosLibrary
             };
+=======
+            var picker = new FileOpenPicker {SuggestedStartLocation = PickerLocationId.VideosLibrary};
+>>>>>>> preventing lock screen when playing
             picker.FileTypeFilter.Add(".mp4");
             picker.FileTypeFilter.Add(".avi");
             var file = await picker.PickSingleFileAsync();
